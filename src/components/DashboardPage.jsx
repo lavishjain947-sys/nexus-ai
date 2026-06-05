@@ -167,7 +167,7 @@ export default function DashboardPage({ onNavigate }) {
   const user = getStoredUser()
 
   const activeChat = chats.find((c) => c._id === activeChatId) || null
-  const messages = activeChat ? activeChat.messages : []
+  const messages = activeChat ? (activeChat.messages || []) : []
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -303,7 +303,7 @@ export default function DashboardPage({ onNavigate }) {
           return {
             ...chat,
             messages: [
-              ...chat.messages,
+              ...(chat.messages || []),
               { role: 'assistant', content: `Error: ${err.message}. Please try again.`, _id: 'error-' + Date.now() },
             ],
           }
