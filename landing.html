@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus AI - Your Personal Assistant</title>
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+  <div class="landing-container">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <div class="nav-icon">N</div>
+        <div class="brand-text">
+          <span class="brand-main">Nexus</span>
+          <span class="brand-sub">AI</span>
+        </div>
+      </div>
+      <button class="nav-signin" id="navSignIn">Sign in</button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="nexus-logo-hero">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffd500;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ffb700;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- N shape -->
+            <path d="M 50 30 L 50 170 M 50 30 L 150 170 M 150 30 L 150 170" stroke="url(#logoGrad)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="nexus-title">NEXUS AI</h2>
+        <h1>Your Personal<br />AI Advisor</h1>
+        <p>
+          Get instant help with Python automation, backend development, AI/ML coding, and debugging. 
+          Your Hindi-English coding companion, always ready to assist.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
+          <button class="btn btn-secondary" id="demoBtn">See Demo</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="chat-examples">
+      <div class="examples-grid">
+        <div class="example-card">
+          <div class="message user-msg">
+            <span class="avatar user">You</span>
+            <p>Mujhe Python me file read karne ka code chahiye</p>
+          </div>
+          <div class="message assistant-msg">
+            <span class="avatar assistant">Nexus</span>
+            <p>Bilkul! Ye code use karo: with open('file.txt', 'r') as f: content = f.read()</p>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="message user-msg">
+            <span class="avatar user">You</span>
+            <p>Help me debug this API error</p>
+          </div>
+          <div class="message assistant-msg">
+            <span class="avatar assistant">Nexus</span>
+            <p>Share the error message and your code. I'll help you trace the issue and suggest fixes.</p>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="message user-msg">
+            <span class="avatar user">You</span>
+            <p>FastAPI me authentication route banana hai</p>
+          </div>
+          <div class="message assistant-msg">
+            <span class="avatar assistant">Nexus</span>
+            <p>Perfect! Let me show you a secure approach with JWT tokens...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Why Nexus?</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Fast & Smart</h3>
+          <p>Instant responses to your coding questions and problems</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌐</div>
+          <h3>Hindi & English</h3>
+          <p>Seamless Hinglish support for natural conversation</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <h3>Your Company</h3>
+          <p>Tune the assistant to match your company's voice and style</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💾</div>
+          <h3>Local History</h3>
+          <p>All conversations saved locally in your browser</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Nexus © 2026 — Your Personal AI Coding Assistant</p>
+    </footer>
+  </div>
+
+  <script src="landing.js"></script>
+</body>
+</html>

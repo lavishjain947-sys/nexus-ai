@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Assistant Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="loader-card">
+      <div class="loader-ring"></div>
+      <h1>Loading Nexus...</h1>
+      <p>Preparing your assistant experience</p>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-panel">
+        <div class="brand-icon">N</div>
+        <div>
+          <h1>Nexus Assistant</h1>
+          <p>AI dashboard for Hindi-English coding and personal assistant workflows.</p>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel-header">
+          <span>Company Info</span>
+          <button id="editCompanyBtn">Edit</button>
+        </div>
+        <textarea id="companyInfo" spellcheck="false">Company: Lavion AI
+Focus: Python automation, AI/ML backend, debugging support
+Voice: casual Hinglish with code-first responses
+Keep answers practical, precise, and safe.</textarea>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header"><span>Saved Prompts</span></div>
+        <div class="saved-list" id="savedPrompts"></div>
+        <button class="ghost-btn" id="addPromptBtn">Add prompt</button>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header"><span>Assistant Style</span></div>
+        <div class="style-grid">
+          <button class="style-btn active" data-style="Casual Hinglish">Casual Hinglish</button>
+          <button class="style-btn" data-style="Developer concise">Developer concise</button>
+          <button class="style-btn" data-style="Step-by-step explain">Step-by-step explain</button>
+          <button class="style-btn" data-style="Professional tone">Professional tone</button>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main-panel">
+      <div class="top-card">
+        <div>
+          <p class="section-label">Model info</p>
+          <h2>Ollama Cloud / hosted assistant</h2>
+          <p class="subtext">Use the API backend later; for now the UI is ready for your custom prompt workflow.</p>
+        </div>
+        <div class="model-chip">Model: gpt-oss:120b (demo)</div>
+      </div>
+
+      <section class="panel prompt-panel">
+        <div class="panel-header">
+          <span>System prompt</span>
+          <button id="togglePromptEdit">Toggle edit</button>
+        </div>
+        <textarea id="systemPrompt" spellcheck="false">You are Nexus, a Hindi-English coding assistant. Answer with practical Python, backend, automation, and AI/ML solutions. Keep tone friendly, technical, and concise when appropriate.</textarea>
+      </section>
+
+      <section class="chat-panel">
+        <div class="chat-header">
+          <div>
+            <p class="section-label">Conversation</p>
+            <h2>Live chat</h2>
+          </div>
+          <div class="chat-actions">
+            <button id="clearChatBtn">Clear history</button>
+          </div>
+        </div>
+
+        <div class="message-list" id="messageList"></div>
+
+        <div class="composer">
+          <div class="prompt-actions">
+            <span class="prompt-tag" id="currentStyleTag">Style: Casual Hinglish</span>
+          </div>
+          <textarea id="userInput" placeholder="Type your question, code request, or debugging prompt..." spellcheck="false"></textarea>
+          <div class="composer-footer">
+            <button class="send-btn" id="sendBtn">Send</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="history-panel">
+      <div class="panel">
+        <div class="panel-header"><span>Chat history</span></div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+
+      <div class="panel info-card">
+        <div class="panel-header"><span>Usage note</span></div>
+        <p>Local chat history saves automatically in your browser. Use the system prompt editor to tune assistant behavior for your company.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
