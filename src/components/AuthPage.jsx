@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial } from '@react-three/drei'
@@ -134,19 +134,51 @@ export default function AuthPage({ onNavigate }) {
   const [keepSignedIn, setKeepSignedIn] = useState(false)
   const [authLoading, setAuthLoading] = useState(false)
   const [authError, setAuthError] = useState('')
+  const googleBtnRef = useRef(null)
+  const gsiInited = useRef(false)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!email || !password) return
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('code')
+    if (code) {
+      handleGithubCallback(code)
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (googleBtnRef.current && !gsiInited.current && window.google?.accounts?.id) {
+      gsiInited.current = true
+      window.google.accounts.id.initialize({
+        client_id: '113326705204-skc1a789arq7tg0t029tf8drplogqgg2.apps.googleusercontent.com',
+        callback: handleGoogleResponse,
+        cancel_on_tap_outside: false,
+      })
+    }
+  }, [])
+
+  const handleGoogleResponse = async (response) => {
+    if (!response?.credential) {
+      setAuthError('Google sign-in failed. No credential received.')
+      return
+    }
     setAuthLoading(true)
     setAuthError('')
     try {
-      if (mode === 'login') {
-        await login(email, password)
-      } else {
-        if (!name) { setAuthError('Name is required'); setAuthLoading(false); return }
-        await register(name, email, password)
-      }
+      await googleAuth(response.credential)
+      onNavigate('dashboard')
+    } catch (err) {
+      setAuthError(err.message)
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  const handleGithubCallback = async (code) => {
+    setAuthLoading(true)
+    setAuthError('')
+    try {
+      await githubAuth(code)
       onNavigate('dashboard')
     } catch (err) {
       setAuthError(err.message)
@@ -156,19 +188,21 @@ export default function AuthPage({ onNavigate }) {
   }
 
   const handleSocialAuth = async (provider) => {
-    setAuthLoading(true)
     setAuthError('')
-    try {
-      if (provider === 'google') {
-        await googleAuth('test-credential')
-      } else if (provider === 'github') {
-        await githubAuth('test-code')
+    if (provider === 'google') {
+      if (window.google?.accounts?.id) {
+        window.google.accounts.id.prompt()
+      } else {
+        setAuthError('Google Sign-In is still loading. Please try again.')
       }
-      onNavigate('dashboard')
-    } catch (err) {
-      setAuthError(err.message)
-    } finally {
-      setAuthLoading(false)
+      return
+    }
+    if (provider === 'github') {
+      const clientId = 'Ov23li92WZJ6olldWBBJ'
+      const redirectUri = window.location.origin + '/auth'
+      const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user:email`
+      window.location.href = url
+      return
     }
   }
 

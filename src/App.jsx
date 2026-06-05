@@ -12,10 +12,14 @@ import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
 import AuthPage from './components/AuthPage'
 import DashboardPage from './components/DashboardPage'
+import ErrorBoundary from './components/ErrorBoundary'
 
 export default function App() {
   const [initialLoading, setInitialLoading] = useState(true)
-  const [page, setPage] = useState('landing')
+  const [page, setPage] = useState(() => {
+    const params = new URLSearchParams(window.location.search)
+    return params.get('code') ? 'auth' : 'landing'
+  })
   const [pageTransition, setPageTransition] = useState(false)
   const [pendingPage, setPendingPage] = useState(null)
 
@@ -102,7 +106,9 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <DashboardPage onNavigate={handleNavigate} />
+            <ErrorBoundary>
+              <DashboardPage onNavigate={handleNavigate} />
+            </ErrorBoundary>
           </motion.div>
         )}
       </motion.div>
